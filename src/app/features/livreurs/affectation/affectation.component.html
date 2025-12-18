@@ -1,0 +1,41 @@
+<div class="container p-6">
+  <div class="header flex justify-between items-center mb-8 bg-white p-4 rounded-lg shadow-sm">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-800">Affectation des Livraisons</h1>
+      <p class="text-gray-500 text-sm">Distribuez les commandes aux livreurs actifs</p>
+    </div>
+    
+    <button (click)="autoAssign()" class="btn-auto">
+      ⚡ Affectation Automatique
+    </button>
+  </div>
+
+  <div class="grid gap-4">
+    <div *ngFor="let cmd of pendingCommandes" class="card-assign">
+      <div class="info">
+        <span class="badge-id">#{{ cmd.id }}</span>
+        <h3 class="font-bold">{{ cmd.client_nom || 'Commande Client' }}</h3>
+        <p class="text-sm text-gray-600">{{ cmd.adresse_livraison }}</p>
+      </div>
+
+      <div class="actions flex gap-3 items-center">
+        <select #livrSelect class="select-livreur">
+          <option value="" disabled selected>Choisir un livreur...</option>
+          <option *ngFor="let l of livreursDisponibles" [value]="l.id">
+            {{ l.prenom }} {{ l.nom }} ({{ l.vehicule }})
+          </option>
+        </select>
+
+        <button (click)="validerAffectation(cmd.id, +livrSelect.value)" 
+                [disabled]="!livrSelect.value" 
+                class="btn-valid">
+          Affecter
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="pendingCommandes.length === 0" class="empty-state">
+      <p>🎉 Toutes les commandes sont déjà affectées.</p>
+    </div>
+  </div>
+</div>

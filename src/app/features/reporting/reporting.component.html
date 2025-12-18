@@ -1,0 +1,89 @@
+<div class="p-8 bg-slate-50 min-h-screen">
+  
+  <div class="flex justify-between items-center mb-10">
+    <div>
+      <h1 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">Preuves & Reporting</h1>
+    </div>
+    <div class="flex gap-4">
+      <button (click)="exportExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold uppercase transition-all shadow-lg">
+        Export Excel
+      </button>
+      <button (click)="exportPDF()" class="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2.5 rounded-xl text-xs font-bold uppercase transition-all shadow-lg">
+        Export PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-8 flex flex-wrap gap-6 items-end">
+    <div class="flex-1 min-w-[200px]">
+      <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Livreur</label>
+      <select [(ngModel)]="selectedLivreur" (change)="appliquerFiltres()" class="w-full bg-slate-50 border-none rounded-lg p-2.5 text-sm font-bold text-slate-700">
+        <option value="tous">Tous les livreurs</option>
+        <option value="Moussa Diallo">Moussa Diallo</option>
+        <option value="Fatou Sow">Fatou Sow</option>
+      </select>
+    </div>
+    <div class="flex-1 min-w-[150px]">
+      <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Du</label>
+      <input type="date" [(ngModel)]="filterDateDebut" (change)="appliquerFiltres()" class="w-full bg-slate-50 border-none rounded-lg p-2 text-sm">
+    </div>
+    <div class="flex-1 min-w-[150px]">
+      <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Au</label>
+      <input type="date" [(ngModel)]="filterDateFin" (change)="appliquerFiltres()" class="w-full bg-slate-50 border-none rounded-lg p-2 text-sm">
+    </div>
+  </div>
+
+  <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
+    <table class="w-full text-left">
+      <thead class="bg-slate-900 text-white">
+        <tr>
+          <th class="p-5 text-[10px] font-bold uppercase tracking-widest">Commande</th>
+          <th class="p-5 text-[10px] font-bold uppercase tracking-widest">Livreur</th>
+          <th class="p-5 text-[10px] font-bold uppercase tracking-widest">Statut</th>
+          <th class="p-5 text-[10px] font-bold uppercase tracking-widest">Preuve</th>
+          <th class="p-5 text-[10px] font-bold uppercase tracking-widest">Cohérence</th>
+          <th class="p-5 text-[10px] font-bold uppercase tracking-widest text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of filteredLogs" class="border-b border-slate-50 hover:bg-slate-50 transition-all">
+          <td class="p-5 font-black text-slate-800">{{ log.id }}</td>
+          <td class="p-5 text-slate-600 font-medium">{{ log.livreur }}</td>
+          <td class="p-5">
+            <span [class]="log.statut === 'Validé' ? 'text-emerald-500' : 'text-orange-500'" class="font-bold uppercase text-[10px]">
+              {{ log.statut }}
+            </span>
+          </td>
+          <td class="p-5">
+            <button (click)="ouvrirPreuve(log)" class="text-[10px] font-bold bg-blue-50 text-blue-600 px-3 py-1 rounded-lg uppercase hover:bg-blue-600 hover:text-white transition-all">
+              Voir Preuve
+            </button>
+          </td>
+          <td class="p-5">
+            <span *ngIf="log.alerte" class="text-red-600 font-bold uppercase text-[10px]">Incohérence détectée</span>
+            <span *ngIf="!log.alerte" class="text-emerald-500 font-bold text-[10px]">Donnée valide</span>
+          </td>
+          <td class="p-5 text-center">
+            <button *ngIf="log.statut !== 'Validé'" 
+                    (click)="validerLivraison(log.id)" 
+                    class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-lg text-[10px] font-black uppercase hover:bg-emerald-500 hover:text-white transition-all">
+              Valider
+            </button>
+            <span *ngIf="log.statut === 'Validé'" class="text-emerald-500 font-black text-[10px] uppercase">✓ Archivé</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="showModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[2000] flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center">
+      <h2 class="text-xl font-black mb-4 uppercase">Preuve : {{ selectedLog?.id }}</h2>
+      <div class="bg-slate-100 h-48 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-300 mb-4">
+        <span class="text-slate-400 font-bold italic">[ Photo Livraison ]</span>
+      </div>
+      <button (click)="fermerModal()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold uppercase text-xs">Fermer</button>
+    </div>
+  </div>
+
+</div>

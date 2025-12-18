@@ -1,0 +1,71 @@
+<div class="p-12 bg-gray-50 min-h-screen flex items-start justify-center">
+  <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mt-6">
+    
+    <div class="bg-slate-800 p-10">
+      <h2 class="text-3xl font-extrabold text-white uppercase tracking-wider">
+        Ajouter un nouveau livreur
+      </h2>
+      <p class="text-slate-400 text-lg mt-3">
+        Remplissez le formulaire ci-dessous pour enregistrer un profil.
+      </p>
+    </div>
+
+    <form [formGroup]="livreurForm" (ngSubmit)="onSubmit()" class="p-12 space-y-10">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="flex flex-col">
+          <label class="text-sm font-black text-gray-600 uppercase mb-3 tracking-widest">Prénom</label>
+          <input type="text" formControlName="prenom" placeholder="Prénom du livreur"
+                 class="w-full px-6 py-4 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all text-gray-700 shadow-sm">
+        </div>
+
+        <div class="flex flex-col">
+          <label class="text-sm font-black text-gray-600 uppercase mb-3 tracking-widest">Nom</label>
+          <input type="text" formControlName="nom" placeholder="Nom du livreur"
+                 class="w-full px-6 py-4 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all text-gray-700 shadow-sm">
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-sm font-black text-gray-600 uppercase mb-3 tracking-widest">Adresse Email Professionnelle</label>
+        <input type="email" formControlName="email" placeholder="adresse@exemple.com"
+               class="w-full px-6 py-4 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all text-gray-700 shadow-sm">
+        <div *ngIf="livreurForm.get('email')?.invalid && livreurForm.get('email')?.touched" class="mt-2">
+            <span class="text-red-600 font-bold text-xs uppercase tracking-tighter">Erreur : Email invalide</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="flex flex-col">
+          <label class="text-sm font-black text-gray-600 uppercase mb-3 tracking-widest">Numéro de Téléphone</label>
+          <input type="text" formControlName="telephone" placeholder="Ex: 77 000 00 00"
+                 class="w-full px-6 py-4 rounded-xl border-2 border-gray-200 focus:border-blue-500 outline-none transition-all shadow-sm">
+        </div>
+
+        <div class="flex flex-col">
+          <label class="text-sm font-black text-gray-600 uppercase mb-3 tracking-widest">Type de Véhicule</label>
+          <select formControlName="vehicule" 
+                  class="w-full px-6 py-4 rounded-xl border-2 border-gray-200 bg-white focus:border-blue-500 outline-none transition-all shadow-sm appearance-none cursor-pointer">
+            <option value="Moto">Moto</option>
+            <option value="Velo">Vélo</option>
+            <option value="Voiture">Voiture</option>
+            <option value="Camion">Camion</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-8 pt-12 border-t-2 border-gray-50">
+        <button type="submit" [disabled]="livreurForm.invalid"
+                class="w-full sm:flex-[2] bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-black text-xl py-5 px-10 rounded-2xl shadow-xl shadow-blue-100 transition-all active:scale-95 uppercase tracking-widest">
+          Enregistrer le profil
+        </button>
+        
+        <button type="button" routerLink="/admin/livreurs"
+                class="w-full sm:flex-1 px-10 py-5 bg-gray-100 hover:bg-gray-200 text-gray-500 font-black rounded-2xl transition-all text-center uppercase tracking-widest">
+          Annuler
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

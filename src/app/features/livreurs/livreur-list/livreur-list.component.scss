@@ -1,0 +1,19 @@
+.container { padding: 2rem; background: #f9f9f9; }
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; // Espace entre les lignes
+  thead th { background: #34495e; color: white; padding: 12px; }
+  tbody tr { 
+    background: white; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    td { padding: 15px; border: none; }
+  }
+}
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  &.disponible { background: #d4edda; color: #155724; }
+  &.en_livraison { background: #fff3cd; color: #856404; }
+}

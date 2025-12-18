@@ -1,0 +1,53 @@
+.btn-auto {
+  background-color: #10b981;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s;
+  &:hover { background-color: #059669; transform: translateY(-2px); }
+}
+
+.card-assign {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.badge-id {
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.select-livreur {
+  border: 1px solid #d1d5db;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: #f9fafb;
+}
+
+.btn-valid {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  &:disabled { background-color: #93c5fd; cursor: not-allowed; }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: #f3f4f6;
+  border-radius: 12px;
+  color: #6b7280;
+  border: 2px dashed #d1d5db;
+}
